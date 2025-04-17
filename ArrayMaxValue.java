@@ -12,4 +12,15 @@ public class ArrayMaxValue {
         for (int i : integer){ if (i > max) {max = i;}} // loops through the values , if a value is bigger max is set to that value
         return max;
     }
+
+
+      static int findTheIndex(int[] arr){
+        int i = 0;
+        int max = maxValue(arr);
+        while (arr[i] != max){
+            i++;
+        }
+        return i;
+    }
+  
 }
