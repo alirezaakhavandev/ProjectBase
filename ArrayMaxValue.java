@@ -6,10 +6,8 @@ import java.util.Arrays;
 public class App {
     public static void main( String[] args ) {
         int[] numbers = {5,6,28,32,78,1,2,5,6,7,-12};
-        System.out.println(maxValue(numbers));
-        System.out.println(minValue(numbers));
-        System.out.println(findTheIndex(numbers));
-        System.out.println(Arrays.toString(reverseOrder(numbers)));
+        System.out.println(Arrays.toString(getEven(numbers)));
+
     }
 
     static int maxValue(int[] integer){
@@ -38,7 +36,6 @@ public class App {
         }
         return i;
     }
-
     static int[] reverseOrder(int[] array){
         int[] reverseTheNumbers = new int[array.length];
         for (int i =0 ; i< array.length ; i++){
@@ -46,6 +43,28 @@ public class App {
         }
         return reverseTheNumbers;
     }
-    
+
+    static int[] getEven(int[] array){
+        int count = 0;
+        //gets the amount of even numbers in an array
+        for (int i : array){
+            if (i % 2 == 0 ){
+                count++;
+            }
+        }
+
+        int counter = 0;
+
+        int[] values = new int[count];
+        
+        for (int i : array){
+            if (i % 2 == 0){
+                values[counter] = i;
+                counter++;
+            }
+        }
+        return values;
+        
+    }
 
 }
