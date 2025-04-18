@@ -5,13 +5,7 @@ import java.util.Arrays;
 
 public class App {
     public static void main( String[] args ) {
-        int[] numbers = {5,6,28,32,78,1,2,5,6,7,-12,33,67,129,321,-451};
-        System.out.println("The max value is : " + maxValue(numbers));
-        System.out.println("The min value is : " + minValue(numbers));
-        System.out.println("The index of Max value is : " + maxIndex(numbers));
-        System.out.println("The reverse order is : " + Arrays.toString(reverseOrder(numbers)));
-        System.out.println("Even numbers are : " + Arrays.toString(getEven(numbers)));
-        System.out.println("Odd numbers are : "  + Arrays.toString(getOdd(numbers)));
+        int[] numbers = {5,6,28,32,78,1,2,5,6,7,-12,33,67,129,321,-451,2,6};
 
     }
 
@@ -70,8 +64,6 @@ public class App {
         return values;
 
     }
-
-
     static int[] getOdd(int[] array){
         // count the even numbers to get the length
         int count = 0 ;
@@ -94,6 +86,34 @@ public class App {
         //return array
         return oddArray;
     }
+    static int[] uniqueValues(int[] array) {
+        int[] unique = new int[array.length];
+        int uniqueCount = 0;
 
+        for (int i = 0; i < array.length; i++) {
+            boolean isDuplicate = false;
+
+            // Only check the values before i
+            for (int j = 0; j < i; j++) {
+                if (array[i] == array[j]) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+
+            if (!isDuplicate) {
+                unique[uniqueCount] = array[i];
+                uniqueCount++;
+            }
+        }
+
+        // Trim result to the correct length
+        int[] result = new int[uniqueCount];
+        for (int i = 0; i < uniqueCount; i++) {
+            result[i] = unique[i];
+        }
+
+        return result;
+    }
 
 }
