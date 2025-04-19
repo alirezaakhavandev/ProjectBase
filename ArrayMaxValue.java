@@ -44,7 +44,6 @@ public class App {
     }
     static int[] getEven(int[] array){
         int count = 0;
-        //gets the amount of even numbers in an array
         for (int i : array){
             if (i % 2 == 0 ){
                 count++;
