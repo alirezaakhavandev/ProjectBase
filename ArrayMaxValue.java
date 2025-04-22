@@ -10,14 +10,18 @@ public class App {
     }
 
     static int maxValue(int[] integer){
-        int max = integer[0];
+        int max = integer[0];//assuming that the first object of array is the biggest
         for (int i : integer){
-            if (i > max) {
+            if (i > max) { 
+                //tells if i is bigger then max  = i
+                //loops all the object to find the biggest
                 max = i;
             }
         }
         return max;
     }
+
+    
     static int minValue(int[] integer){
         int min = integer[0];
         for (int i : integer){
@@ -27,14 +31,20 @@ public class App {
         }
         return min;
     }
+
+
+    
     static int maxIndex(int[] arr){
         int i = 0;
-        int max = maxValue(arr);
+        int max = maxValue(arr);//calling the macVale method
         while (arr[i] != max){
-            i++;
+            i++; //keeps counting till it finds the match
         }
         return i;
     }
+
+
+    
     static int[] reverseOrder(int[] array){
         int[] reverseTheNumbers = new int[array.length];
         for (int i =0 ; i< array.length ; i++){
@@ -42,6 +52,9 @@ public class App {
         }
         return reverseTheNumbers;
     }
+
+
+    
     static int[] getEven(int[] array){
         int count = 0;
         for (int i : array){
@@ -51,7 +64,6 @@ public class App {
         }
 
         int counter = 0;
-
         int[] values = new int[count];
 
         for (int i : array){
@@ -63,6 +75,9 @@ public class App {
         return values;
 
     }
+
+
+    
     static int[] getOdd(int[] array){
         // count the even numbers to get the length
         int count = 0 ;
@@ -85,6 +100,9 @@ public class App {
         //return array
         return oddArray;
     }
+
+
+    
     static int[] uniqueValues(int[] array) {
         int[] unique = new int[array.length];
         int uniqueCount = 0;
