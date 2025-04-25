@@ -23,7 +23,7 @@ public class Recursive{
 
 
     public static boolean isPalindrome(String str) {
-        if (str.length() <= 1) return true; // if it has only one character is Palindrome
+        if (str.length() <= 1) return true; // if it has only one character is Palindro
         if (str.charAt(0) != str.charAt(str.length() - 1)) return false; // if the first and last characters are not
         //the same it is not a Palindrome
         //cut the first and the last
