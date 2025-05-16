@@ -1,4 +1,4 @@
-class OverlimitException extends RuntimeException {
+class OverlimitException extends RuntimeException { //It is an unchecked Exception
     public OverlimitException(String message) {
         super(message);
     }
@@ -10,11 +10,17 @@ public class LimitChecker {
         checker.setLimit(150);
     }
 
-    public void setLimit(int value) throws OverlimitException {
-        if (value > 100) {
-            throw OverlimitException("Value too high!");
-        } else {
-            System.out.println("Limit set to: " + value);
+    public void setLimit(int value){
+        try {
+            if (value > 100) {
+                throw new OverlimitException("Value too high!");
+            } else {
+                System.out.println("Limit set to: " + value);
+            }
+        }catch (OverlimitException e){
+            System.out.println("Overlimited");
+        }catch (Exception re){
+            System.out.println("Something went Wrong!");
         }
     }
 }
