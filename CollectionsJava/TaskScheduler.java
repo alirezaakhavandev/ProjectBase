@@ -1,72 +1,107 @@
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class TaskScheduler {
-    ArrayList<String> titles = new ArrayList<>();
-    ArrayList<String> descriptions = new ArrayList<>();
-    ArrayList<Integer> priorities = new ArrayList<>();
+    record Task(String title, String description, int priority) {
+    }
+
+    ArrayList<Task> tasks = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
+
 
     public void addTask() {
         System.out.println("Enter task title:");
-        titles.add(scanner.nextLine());
-
+        String taskName = scanner.nextLine();
         System.out.println("Enter task description:");
-        descriptions.add(scanner.nextLine());
-
-        System.out.println("Enter priority (1-5):");
-        priorities.add(scanner.nextInt());  // ❌ might leave newline
-    }
-
-    public void listTasks() {
-        for (int i = 0; i <= titles.size(); i++) {  // ❌ off-by-one
-            System.out.println("Title: " + titles.get(i));
-            System.out.println("Description: " + descriptions.get(i));
-            System.out.println("Priority: " + priorities.get(i));
-        }
+        String taskDescription = scanner.nextLine();
+        System.out.println("Enter task priority:(1-5)");
+        int taskPriority = scanner.nextInt();
+        scanner.nextLine();
+        tasks.add(new Task(taskName, taskDescription, taskPriority));
     }
 
     public void removeTask() {
-        System.out.println("Enter title to remove:");
-        String title = scanner.nextLine();
-        int index = titles.indexOf(title);
-        titles.remove(index);
-        descriptions.remove(index);
-        priorities.remove(index);
+        System.out.println("Enter task title:");
+        String taskTitle = scanner.nextLine(); // ✅ This alone is fine
+        boolean removed = tasks.removeIf(task -> taskTitle.equals(task.title));
+        if (removed)
+            System.out.println("The task \"" + taskTitle + "\" has been removed.");
+        else
+            System.out.println("Task not found.");
     }
 
     public void showHighestPriority() {
-        int max = 0;
-        int index = 0;
-        for (int i = 1; i < priorities.size(); i++) {
-            if (priorities.get(i) > max) {  // ❌ starts at 0, might miss real max
-                max = priorities.get(i);
-                index = i;
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks available.");
+            return;
+        }
+
+        Task highest = tasks.getFirst();
+        for (Task task : tasks) {
+            if (task.priority > highest.priority) {
+                highest = task;
             }
         }
-        System.out.println("Highest priority task: " + titles.get(index));
+
+        System.out.println("Highest priority Task: " + highest.title + " (Priority: " + highest.priority + ")");
     }
+
 
     public void sortTasksByPriority() {
-        for (int i = 0; i < priorities.size(); i++) {
-            for (int j = i + 1; j < priorities.size(); j++) {
-                if (priorities.get(i) < priorities.get(j)) {
-                    // ❌ Only swaps priorities, not other lists
-                    int temp = priorities.get(i);
-                    priorities.set(i, priorities.get(j));
-                    priorities.set(j, temp);
-                }
-            }
+        tasks.sort((a, b) -> Integer.compare(b.priority, a.priority));
+        System.out.println("Tasks sorted by priority (high to low):");
+        for (Task task : tasks) {
+            System.out.println(task.title + " - Priority: " + task.priority);
         }
     }
 
-    public static void main(String[] args) {
-        TaskScheduler ts = new TaskScheduler();
-        ts.addTask();
-        ts.listTasks();
-        ts.sortTasksByPriority();
-        ts.showHighestPriority();
-        ts.removeTask();
-        ts.listTasks();
+    public void listTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks available.");
+            return;
+        }
+        for (Task task : tasks) {
+            System.out.println("Title: " + task.title);
+            System.out.println("Description: " + task.description);
+            System.out.println("Priority: " + task.priority);
+            System.out.println("-----");
+        }
     }
+
+    public void run() {
+        while (true) {
+            System.out.println(
+                    """
+                    1. Add Task
+                    2. List Tasks
+                    3. Remove Task
+                    4. Show Highest Priority
+                    5. Sort Tasks by Priority
+                    0. Exit
+                    """
+            );
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
+
+            switch (choice) {
+                case 1 -> addTask();
+                case 2 -> listTasks();
+                case 3 -> removeTask();
+                case 4 -> showHighestPriority();
+                case 5 -> sortTasksByPriority();
+                case 0 -> {
+                    System.out.println("Exiting...");
+                    return;
+                }
+                default -> System.out.println("Invalid choice.");
+            }
+        }
+    }
+    
+
 }
+
+
