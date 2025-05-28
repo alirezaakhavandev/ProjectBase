@@ -1,15 +1,12 @@
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class TaskScheduler {
-    record Task(String title, String description, int priority) {
-    }
-
+    //A Task class for getting the data of a task
+    record Task(String title, String description, int priority) {}
     ArrayList<Task> tasks = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
-
 
     public void addTask() {
         System.out.println("Enter task title:");
@@ -18,20 +15,18 @@ public class TaskScheduler {
         String taskDescription = scanner.nextLine();
         System.out.println("Enter task priority:(1-5)");
         int taskPriority = scanner.nextInt();
-        scanner.nextLine();
+        scanner.nextLine(); //Fixed newLine Bug here
         tasks.add(new Task(taskName, taskDescription, taskPriority));
     }
-
     public void removeTask() {
         System.out.println("Enter task title:");
-        String taskTitle = scanner.nextLine(); 
+        String taskTitle = scanner.nextLine();
         boolean removed = tasks.removeIf(task -> taskTitle.equals(task.title));
         if (removed)
             System.out.println("The task \"" + taskTitle + "\" has been removed.");
         else
             System.out.println("Task not found.");
     }
-
     public void showHighestPriority() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks available.");
@@ -47,8 +42,6 @@ public class TaskScheduler {
 
         System.out.println("Highest priority Task: " + highest.title + " (Priority: " + highest.priority + ")");
     }
-
-
     public void sortTasksByPriority() {
         tasks.sort((a, b) -> Integer.compare(b.priority, a.priority));
         System.out.println("Tasks sorted by priority (high to low):");
@@ -56,7 +49,6 @@ public class TaskScheduler {
             System.out.println(task.title + " - Priority: " + task.priority);
         }
     }
-
     public void listTasks() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks available.");
@@ -69,7 +61,6 @@ public class TaskScheduler {
             System.out.println("-----");
         }
     }
-
     public void run() {
         while (true) {
             System.out.println(
@@ -84,7 +75,7 @@ public class TaskScheduler {
             );
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); 
+            scanner.nextLine(); // consume newline
 
             switch (choice) {
                 case 1 -> addTask();
@@ -94,13 +85,24 @@ public class TaskScheduler {
                 case 5 -> sortTasksByPriority();
                 case 0 -> {
                     System.out.println("Exiting...");
+                    scanner.close();
                     return;
                 }
                 default -> System.out.println("Invalid choice.");
             }
         }
     }
-    
+
+    public static void main(String[] args) {
+        new TaskSchedularBetter().run();
+    }
+
+
+}
+
+
+class ValidationChecker{
+    //we should handel the Exceptions that may happen
 
 }
 
