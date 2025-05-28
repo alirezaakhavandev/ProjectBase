@@ -24,7 +24,7 @@ public class TaskScheduler {
 
     public void removeTask() {
         System.out.println("Enter task title:");
-        String taskTitle = scanner.nextLine(); // ✅ This alone is fine
+        String taskTitle = scanner.nextLine(); 
         boolean removed = tasks.removeIf(task -> taskTitle.equals(task.title));
         if (removed)
             System.out.println("The task \"" + taskTitle + "\" has been removed.");
@@ -84,7 +84,7 @@ public class TaskScheduler {
             );
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine(); 
 
             switch (choice) {
                 case 1 -> addTask();
