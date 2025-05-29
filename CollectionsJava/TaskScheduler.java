@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class TaskScheduler {
@@ -94,16 +93,9 @@ public class TaskScheduler {
     }
 
     public static void main(String[] args) {
-        new TaskSchedularBetter().run();
+        new TaskScheduler().run();
     }
 
 
 }
-
-
-class ValidationChecker{
-    //we should handel the Exceptions that may happen
-
-}
-
 
