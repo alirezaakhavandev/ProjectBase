@@ -1,0 +1,92 @@
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+public class EventTracker {
+
+    public static void main(String[] args) {
+
+        Set<Event> events = new HashSet<>();
+
+
+        Event conf2025 = new Event("2025-06-01");
+        conf2025.addAttendee(new Attendee("ethan@gmail.com"));
+        conf2025.addAttendee(new Attendee("raze@ai.net"));
+
+        Event duplicateConf = new Event("2025-06-01");
+        duplicateConf.addAttendee(new Attendee("ETHAN@GMAIL.COM"));
+        duplicateConf.addAttendee(new Attendee("raze@ai.net"));
+
+        Event anotherDay = new Event("2025-06-02");
+        anotherDay.addAttendee(new Attendee("ethan@gmail.com"));
+
+        events.add(conf2025);
+        events.add(duplicateConf); // ❌ Should be seen as duplicate
+        events.add(anotherDay);
+
+        System.out.println("Tracked Events:");
+        for (Event e : events) {
+            System.out.println(e);
+        }
+
+
+    }
+}
+
+
+class Event {
+    String date; // Format: YYYY-MM-DD
+    Set<Attendee> attendees;
+
+    Event(String date) {
+        this.date = date;
+        this.attendees = new HashSet<>();
+    }
+
+    void addAttendee(Attendee a) {
+        attendees.add(a);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return date.equalsIgnoreCase(event.date) && attendees.equals(event.attendees);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date.toLowerCase(), attendees);
+    }
+
+    @Override
+    public String toString() {
+        return date + " → " + attendees;
+    }
+}
+
+
+class Attendee {
+    String email;
+
+    Attendee(String email) {
+        this.email = email;
+    }
+
+    public String toString() {
+        return email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Attendee a = (Attendee) o;
+        return email.equals(a.email); // ☠️ Case-sensitive
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(email); // ☠️ No normalization
+    }
+}
