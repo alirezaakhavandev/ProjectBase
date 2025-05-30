@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class ProductTracker {
@@ -9,6 +10,7 @@ public class ProductTracker {
         products.add(new Product("laptop", 999.99)); // should be duplicate
         products.add(new Product("Phone", 499.49));
         products.add(new Product("Laptop", 999.98)); // maybe different?
+
 
         System.out.println("Tracked products:");
         for (Product p : products) {
@@ -30,16 +32,17 @@ class Product {
         return name + " - $" + price;
     }
 
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Product other = (Product) obj;
-        return name.equalsIgnoreCase(other.name) && price == other.price;
+        Product product = (Product) obj;
+        return name.equalsIgnoreCase(product.name) && price == product.price;
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode(); // 🔥
+        return Objects.hash(name.toLowerCase(), price);
     }
 }
