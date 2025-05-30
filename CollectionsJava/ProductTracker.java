@@ -7,9 +7,9 @@ public class ProductTracker {
         Set<Product> products = new HashSet<>();
 
         products.add(new Product("Laptop", 999.99));
-        products.add(new Product("laptop", 999.99)); // should be duplicate
+        products.add(new Product("laptop", 999.99)); 
         products.add(new Product("Phone", 499.49));
-        products.add(new Product("Laptop", 999.98)); // maybe different?
+        products.add(new Product("Laptop", 999.98)); 
 
 
         System.out.println("Tracked products:");
